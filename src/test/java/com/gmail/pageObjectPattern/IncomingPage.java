@@ -17,7 +17,8 @@ public class IncomingPage {
     By fieldSubjectTo = By.cssSelector("INPUT[class='aoT']");
     By fieldbodyOfTheEmail = By.cssSelector("DIV[class='Am Al editable LW-avf']");
     By closeEmailButton = By.cssSelector("IMG[class='Ha']");
-
+    By accountButton = By.cssSelector("span.gb_9a.gbii");
+    By escapeButton = By.cssSelector("#gb_71");
     public IncomingPage(WebDriver driver) {
         this.driver = driver; }
 
@@ -49,4 +50,14 @@ public class IncomingPage {
     public void closeComposeEmailWindow (){
         driver.findElement(closeEmailButton).click();
     }
+    public void clickOnAccountButton (){
+        driver.findElement(accountButton).click();
     }
+    public IncomingPage clickOnLogOutButton () {
+        driver.findElement(escapeButton).click();
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        return this;
+    }
+
+}
+

@@ -7,7 +7,6 @@ package com.gmail.Tests;
         import org.openqa.selenium.firefox.FirefoxDriver;
         import org.testng.Assert;
         import org.testng.annotations.AfterTest;
-        import org.testng.annotations.BeforeClass;
         import org.testng.annotations.BeforeTest;
         import org.testng.annotations.Test;
 

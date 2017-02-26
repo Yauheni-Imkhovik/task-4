@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -15,20 +14,19 @@ import java.beans.IntrospectionException;
 import java.util.UUID;
 
 import static com.gmail.config.Data.*;
-import static com.sun.javafx.scene.control.skin.FXVK.Type.EMAIL;
 
 /**
  * Created by meowmeow on 26.02.2017.
  */
-public class CreateNewDraftTest {
+public class SendEmailDisplayedTest {
     private WebDriver driver;
     public IncomingPage incomingPage;
     public LoginPage loginPage;
     public DraftsPage draftsPage;
-
+    private String uniqueID = UUID.randomUUID().toString();
 
     @BeforeTest
-    public void setUp() throws InterruptedException {
+    public void setUp() throws InterruptedException, IntrospectionException {
         driver = new FirefoxDriver();
         driver.get(LinkTo);
 
@@ -37,14 +35,10 @@ public class CreateNewDraftTest {
         loginPage.clickNext();
         loginPage.typePassword(Password);
         loginPage.submitLogin();
-    }
 
-    @Test
-    public void CreateNewEmail() throws InterruptedException, IntrospectionException {
         incomingPage = new IncomingPage(driver);
         incomingPage.clickOnComposeButton();
         incomingPage.typeNameRecipient(RecepientName);
-        String uniqueID = UUID.randomUUID().toString();
         incomingPage.typeUniqSubject("test subject email " + uniqueID);
         incomingPage.typeBody(Body);
         incomingPage.closeComposeEmailWindow();
@@ -52,9 +46,19 @@ public class CreateNewDraftTest {
         draftsPage = new DraftsPage(driver);
         draftsPage.navigateToDraftsFolder();
         draftsPage.selectFirstDraftInList();
-        Assert.assertTrue(draftsPage.getTextOfSubject().contains(uniqueID));
+        draftsPage.sendVerifEmail();
+    }
 
+    @Test
+    public void VerificateThatSendEmailNotDisplayedInDrafts() throws IntrospectionException, InterruptedException {
 
+        draftsPage = new DraftsPage(driver);
+        draftsPage.navigateToSendEmailFolder();
+        draftsPage.navigateToDraftsFolder();
+        draftsPage.selectFirstDraftInList();
+        Assert.assertFalse(draftsPage.getTextOfSubject().contains(uniqueID));
+        incomingPage = new IncomingPage(driver);
+        incomingPage.closeComposeEmailWindow();
     }
 
     @AfterTest
