@@ -71,6 +71,7 @@ public class DraftsPage {
         driver.findElement(openFirstSend).click();
         return this;
     }
+
     public String getSubjectOfSendEmail() throws IntrospectionException {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         String sSubject = driver.findElement(sendEmailSubject).getText();

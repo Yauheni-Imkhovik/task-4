@@ -1,5 +1,6 @@
 package com.gmail.Tests;
 
+import com.gmail.config.configOfDrivers.WebDriverCreate;
 import com.gmail.pageObjectPattern.DraftsPage;
 import com.gmail.pageObjectPattern.IncomingPage;
 import com.gmail.pageObjectPattern.LoginPage;
@@ -19,15 +20,18 @@ import static com.gmail.config.Data.*;
  * Created by meowmeow on 26.02.2017.
  */
 public class SendEmailDisplayedTest {
-    private WebDriver driver;
+    WebDriver driver = WebDriverCreate.getInstance();
+
     public IncomingPage incomingPage;
     public LoginPage loginPage;
     public DraftsPage draftsPage;
     private String uniqueID = UUID.randomUUID().toString();
 
+    public SendEmailDisplayedTest() throws Exception {
+    }
+
     @BeforeTest
     public void setUp() throws InterruptedException, IntrospectionException {
-        driver = new FirefoxDriver();
         driver.get(LinkTo);
 
         loginPage = new LoginPage(driver);

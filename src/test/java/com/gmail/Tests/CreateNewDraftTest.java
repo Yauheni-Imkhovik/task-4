@@ -1,5 +1,6 @@
 package com.gmail.Tests;
 
+import com.gmail.config.configOfDrivers.WebDriverCreate;
 import com.gmail.pageObjectPattern.DraftsPage;
 import com.gmail.pageObjectPattern.IncomingPage;
 import com.gmail.pageObjectPattern.LoginPage;
@@ -21,15 +22,18 @@ import static com.sun.javafx.scene.control.skin.FXVK.Type.EMAIL;
  * Created by meowmeow on 26.02.2017.
  */
 public class CreateNewDraftTest {
-    private WebDriver driver;
+    WebDriver driver = WebDriverCreate.getInstance();
+
     public IncomingPage incomingPage;
     public LoginPage loginPage;
     public DraftsPage draftsPage;
 
+    public CreateNewDraftTest() throws Exception {
+    }
+
 
     @BeforeTest
     public void setUp() throws InterruptedException {
-        driver = new FirefoxDriver();
         driver.get(LinkTo);
 
         loginPage = new LoginPage(driver);

@@ -1,5 +1,6 @@
 package com.gmail.Tests;
 
+import com.gmail.config.configOfDrivers.WebDriverCreate;
 import com.gmail.pageObjectPattern.IncomingPage;
 import com.gmail.pageObjectPattern.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -17,15 +18,18 @@ import static com.gmail.config.Data.LinkTo;
  * Created by meowmeow on 26.02.2017.
  */
 public class SignInTest {
-    private WebDriver driver;
+
+    WebDriver driver = WebDriverCreate.getInstance();
+
     public LoginPage loginPage;
     public IncomingPage incomingPage;
 
+    public SignInTest() throws Exception {
+    }
+
 
     @BeforeClass
-    public void setUp() {
-
-        driver = new FirefoxDriver();
+    public void setUp() throws Exception {
         driver.get(LinkTo);
     }
 

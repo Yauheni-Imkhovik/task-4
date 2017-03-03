@@ -1,11 +1,11 @@
 package com.gmail.Tests;
 
 
+import com.gmail.config.configOfDrivers.WebDriverCreate;
 import com.gmail.pageObjectPattern.IncomingPage;
 import com.gmail.pageObjectPattern.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,14 +18,17 @@ import static com.gmail.config.Data.LinkTo;
  * Created by meowmeow on 26.02.2017.
  */
 public class LogOutTest {
-    private WebDriver driver;
+    WebDriver driver = WebDriverCreate.getInstance();
+
     public LoginPage loginPage;
     public IncomingPage incomingPage;
+
+    public LogOutTest() throws Exception {
+    }
 
     @BeforeClass
     public void setUp() {
 
-        driver = new FirefoxDriver();
         driver.get(LinkTo);
         loginPage = new LoginPage(driver);
         loginPage.typeUsername(Email);
@@ -35,7 +38,7 @@ public class LogOutTest {
     }
 
     @Test
-    public void logOutOnLoginPage () {
+    public void logOutOnLoginPage() {
 
         incomingPage = new IncomingPage(driver);
         incomingPage.clickOnAccountButton();
